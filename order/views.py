@@ -218,7 +218,7 @@ def html_to_pdf_view(request, pk):
     }
     html_template = render_to_string('order/invoice.html', context=context)
     pdf_file = HTML(string=html_template).write_pdf(
-        stylesheets=[CSS(settings.STATIC_DIR + '/css/invoice.css')]
+        stylesheets=[CSS(settings.STATIC_ROOT + '/css/invoice.css')]
     )
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = 'filename="invoice.pdf"'
