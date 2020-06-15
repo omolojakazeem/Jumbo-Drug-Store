@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Drug List{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Drug List</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Drug List</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+       {% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col">
+      <table class="table table-hover table-responsive ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Drug_Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Manufacturer</th>
+            <th scope="col">Expiry_Date</th>
+            <th scope="col">Stock_Remaining</th>
+            <th colspan="4" scope="col" style="text-align:center">Actions</th>
+
+          </tr>
+        </thead>
+        <tbody>
+        {% for drug in object_list %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{drug.drug_name}}</td>
+            <td>{{drug.drug_category}}</td>
+            <td><s>N</s>{{drug.drug_price|intcomma}}</td>
+            <td>{{drug.drug_man}}</td>
+            <td>{{drug.drug_exp}}</td>
+            <td>{{drug.drug_stock}}</td>
+            <td>
+              <a href="{% url 'drugs:drug_update' drug.drug_category drug.drug_name drug.pk %}">
+                <i class="far fa-edit mr-2"></i></a>
+            </td>
+            <td>
+              <a href="{{drug.get_absolute_url}}"><i class="far fa-eye mr-2"></i></a>
+            </td>
+            <td>
+              <a href="{{drug.get_delete_url}}"><i class="far fa-trash-alt"></i></a>
+            </td>
+            <td>
+              <a href="{% url 'order:add_to_cart' drug.drug_name %}"><i class="fas fa-cart-arrow-down"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+</div>
+
+{% endblock %}
+</div>

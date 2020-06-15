@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Order List{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Customer List</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Customer List</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+{% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col table-responsive">
+      <h1>Active Orders</h1>
+      <table class="table table-hover ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Ref. Code</th>
+            <th scope="col">Items</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Date</th>
+            <th scope="col">Attendant</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in active_orders %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{order.customer}}</td>
+            <td>{{order.ref_code}}</td>
+            <td>
+              <ul>
+                {% for drug in order.drug.all %}
+                  <li>{{drug}}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td><s>N</s>{{order.payment.order_amount}}</td>
+            <td>{{order.ordered_date| date:"Y-m-d"}}</td>
+            <td>{{order.sold_by}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col table-responsive">
+      <h1>Closed Orders</h1>
+      <table class="table table-hover ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Invoice</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Ref. Code</th>
+            <th scope="col">Items</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Date</th>
+            <th scope="col">Attendant</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in closed_orders %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+
+            <td>
+              <a href="{% url 'order:order_invoice' order.pk %}"><i class="fa fa-file" aria-hidden="true"></i></a>
+            </td>
+            <td>{{order.customer}}</td>
+            <td>{{order.ref_code}}</td>
+            <td>
+              <ul>
+                {% for drug in order.drug.all %}
+                  <li>{{drug}}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>{{order.payment.order_amount}}</td>
+            <td>{{order.ordered_date| date:"Y-m-d"}}</td>
+            <td>{{order.sold_by}}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+{% endblock %}

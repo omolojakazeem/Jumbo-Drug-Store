@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Customer List{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Customer List</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Customer List</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+{% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col">
+      <table class="table table-hover table-responsive ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Added by</th>
+            <th colspan="4" scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for customer in object_list %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{customer.customer_first_name}}</td>
+            <td>{{customer.customer_last_name}}</td>
+            <td>{{customer.customer_email}}</td>
+            <td>{{customer.customer_added_by}}</td>
+            <td>
+              <a href="{% url 'customer:customer_update' customer.get_slug_name customer.pk %}">
+                <i class="far fa-edit mr-2"></i>
+              </a>
+            </td>
+            <td>
+              <a href="{% url 'customer:customer_update' customer.get_slug_name customer.pk %}"><i class="far fa-eye mr-2"></i></a>
+            </td>
+            <td>
+              <a href="{% url 'customer:customer_delete' customer.get_slug_name customer.pk %}">
+                <i class="far fa-trash-alt"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+</div>
+
+{% endblock %}

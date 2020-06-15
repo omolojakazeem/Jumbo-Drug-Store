@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Payment List{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Customer List</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Payment List</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+{% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col table-responsive">
+
+      <table class="table table-hover ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Payment Mode</th>
+            <th scope="col">Order Amt</th>
+            <th scope="col">Cr</th>
+            <th scope="col">Dt</th>
+            <th scope="col">Change</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Attendant</th>
+            <th scope="col">Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for payment in object_list %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{payment.customer}}</td>
+            <td>{{payment.payment_option}}</td>
+            <td>{{payment.order_amount}}</td>
+            <td>{{payment.amount_collected}}</td>
+            <td>{{payment.change_given}}</td>
+            <td>{{payment.change_outstanding}}</td>
+            <td>{{payment.comment |safe}}</td>
+            <td>{{payment.attendant}}</td>
+            <td>{{payment.timestamp| date:"Y-m-d"}}</td>
+
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+</div>
+
+{% endblock %}

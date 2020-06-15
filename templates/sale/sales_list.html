@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Drug List{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Sales List</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Sales List</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+      {% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col">
+      <table class="table table-hover ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Item</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in object_list %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{order.customer}}</td>
+            <td>{{order.item}}</td>
+            <td>{{order.sales_date}}</td>
+            <td>{{order.ref_code}}</td>
+            <td>{{order.sold}}</td>
+            <td>
+              <a href="">
+                <i class="far fa-edit mr-2"></i>
+              </a>
+              <a href=""><i class="far fa-eye mr-2"></i></a>
+              <a href="">
+                <i class="far fa-trash-alt"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+</div>
+
+{% endblock %}

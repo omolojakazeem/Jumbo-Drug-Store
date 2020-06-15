@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Expense Detail{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Expense Detail</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Expense Detail</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+       {% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-8 offset-2">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <td>{{object.title}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Description</th>
+          <td>{{object.description|safe}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Category</th>
+           <td>{{object.category}}</td>
+        </tr>
+          <tr>
+            <th scope="col">Amount</th>
+            <td><s>N</s>{{object.amount|intcomma}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Spent By</th>
+            <td>{{object.spent_by}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Date</th>
+            <td>{{object.date| date:"Y-m-d"}}</td>
+          </tr>
+        </thead>
+      </table>
+  </div>
+
+</div>
+
+{% endblock %}

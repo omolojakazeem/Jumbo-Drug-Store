@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+<html>
+  <head>
+    {% include 'snippets/header.html' %}
+    <title>{% block head_title %}{% endblock %}{% block title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+      {% include 'snippets/navbar.html' %}
+      {% include 'snippets/sidebar.html' %}
+      <div class="content-wrapper">
+        <div class="content-header">
+          {% block breadcrumb %}{% endblock %}
+          <section class="content">
+            <div class="container-fluid">
+              {% block mini_header %} {% endblock %}
+              <div class="row">
+                <div class="">
+                  {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+              </div>
+                <section class="col-sm-12 ">
+                <!-- Custom tabs (Charts with tabs)-->
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">
+
+                      </h3>
+
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                      {% block content %} {% endblock%}
+
+                    </div><!-- /.card-body -->
+                  </div>
+                </section>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+{% include 'snippets/footer.html' %}
+{% include 'snippets/scripts.html' %}
+  </body>
+</html>

@@ -1,0 +1,141 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="" class="brand-link disabled">
+      <img src="{% static 'dist/img/logo.jpg' %}" alt="Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Jumbo Drug Store</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        {% if request.user.is_authenticated %}
+        <div class="image">
+          <img src="{% static 'dist/img/logo.jpg' %}" class="disabled img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+            <a href="#" class="disabled d-block">Attendant: {{request.user.username}}</a>
+        </div>
+          {% else %}
+
+          {% endif %}
+
+
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+            <li class="nav-item">
+            <a href="{% url 'dashboard' %}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Overview
+
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-pills"></i>
+              <p>
+                Drugs
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'drugs:drug_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View all</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'drugs:drug_create' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add new</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Customers
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'customer:customer_create' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'customer:customer_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View all</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-money-check-alt"></i>
+              <p>
+                Store Expenses
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'expenses:expense_create' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>New Expense</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'expenses:expense_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Expenses</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-eye"></i>
+              <p>
+                Store Overview
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'order:order_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Orders</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'payment:payment_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Payments</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

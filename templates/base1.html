@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+{% load humanize %}
+<html>
+  <head>
+    {% include 'snippets/header.html' %}
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+  </head>
+  <body>
+        {% block content %}
+
+        {% endblock %}
+{% include 'snippets/scripts.html' %}
+  </body>
+</html>

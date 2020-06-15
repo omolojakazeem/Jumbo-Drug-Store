@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Drug Detail{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Drug Detail</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Drug Detail</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+{% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-8 offset-2">
+     <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Drug Name</th>
+          <td>{{object.drug_name}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Drug Category</th>
+          <td>{{object.drug_category}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Drug Manufacturer</th>
+           <td>{{object.drug_man}}</td>
+        </tr>
+          <tr>
+            <th scope="col">Drug Composition</th>
+            <td>{{object.drug_composition}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Drug Size</th>
+            <td>{{object.drug_size}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Drug Manufacture Date</th>
+            <td>{{object.drug_mfd| date:"Y-m-d"}}</td>
+          </tr>
+          <tr>
+          <th scope="col">Added By</th>
+            <td>{{object.drug_added_by}}</td>
+          </tr>
+          <tr>
+          <th scope="col">Drug Expiry Date</th>
+            <td>{{object.drug_exp| date:"Y-m-d"}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Drug Stock</th>
+            <td>{{object.drug_stock}}</td>
+          </tr>
+          <tr>
+          <th scope="col">Unit Price</th>
+            <td><s>N</s>{{object.drug_price|intcomma}}</td>
+          </tr>
+        </thead>
+      </table>
+  </div>
+
+</div>
+
+{% endblock %}

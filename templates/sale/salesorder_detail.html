@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Drug Detail{% endblock %}
+{% block head_title %}{% endblock %}
+{% block breadcrumb %}
+<div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Sales Detail</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Sales Detail</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+  {% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-10 offset-1">
+     <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Customer Name</th>
+          <td>{{object.customer.customer_first_name}}
+              {{object.customer.customer_second_name}}
+              {{object.customer.customer_last_name}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Item (Drug bought) </th>
+          <td>{{object.item}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Quantity</th>
+           <td>{{object.quantity}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Amount</th>
+           <td>{{object.get_total_order_price}}</td>
+        </tr>
+          <tr>
+            <th scope="col">Payment Status</th>
+             {% if object.sold %}
+                  <td>Paid</td>
+                  {% else %}
+                    <td>Not Paid</td>
+                  {% endif %}
+          </tr>
+          <tr>
+            <th scope="col">Date</th>
+            <td>{{object.sales_date| date:"Y-m-d"}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Ref. Code</th>
+            <td>{{object.ref_code}}</td>
+          </tr>
+        </thead>
+      </table>
+
+  </div>
+</div>
+
+{% endblock %}

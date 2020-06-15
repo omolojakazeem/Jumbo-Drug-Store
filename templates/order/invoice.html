@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="invoice.css" media="print" rel="stylesheet">
+    <title>Invoice</title>
+    <meta name="description" content="Invoice demo sample">
+    <meta name="author" content="Kozea">
+  </head>
+
+  <body>
+    <h1>Invoice</h1>
+
+    <aside>
+      <address id="from">
+        Jumbo Drug Store,
+        Woji Estate,
+        Portharcout, Nigeria
+      </address>
+
+      <address id="to">
+        TO:
+        {{order.customer.customer_full_name}}
+      </address>
+    </aside>
+
+    <dl id="informations">
+      <dt>Ref</dt>
+      <dd>{{order.ref_code}}</dd>
+      <dt>Date</dt>
+      <dd>{{order.ordered_date| date:"Y-m-d"}}</dd>
+    </dl>
+
+    <table>
+
+      <thead>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </thead>
+      <tbody>
+      {% for drugs in order.drug.all %}
+
+          <tr>
+            <td>{{drugs.drug.drug_name}}</td>
+            <td>{{drugs.drug.drug_price}}</td>
+            <td>{{drugs.quantity}}</td>
+            <td><s>N</s>{{drugs.get_total_drug_price}}</td>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    <table id="total">
+      <thead>
+        <th>Due by</th>
+        <th></th>
+        <th>Total due</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="2">{{order.ordered_date| date:"y-M-d"}}</td>
+
+          <td><s>N</s>{{order.payment.order_amount}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

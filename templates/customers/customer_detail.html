@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Customer Detail{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Customer Detail</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Customer Detail</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+{% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-10 offset-1">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">First Name</th>
+          <td>{{object.customer_first_name}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Second Name</th>
+          <td>{{object.customer_second_name}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Last Name</th>
+           <td>{{object.customer_last_name}}</td>
+        </tr>
+          <tr>
+            <th scope="col">Age Bracket</th>
+            <td>{{object.customer_age_bracket}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Email</th>
+            <td>{{object.customer_email}}</td>
+          </tr>
+          <tr>
+            <th scope="col">Added on</th>
+            <td>{{object.customer_added_on | date:"D,M,Y"}}</td>
+          </tr>
+          <tr>
+          <th scope="col">Added By</th>
+            <td>{{object.customer_added_by}}</td>
+          </tr>
+        </thead>
+      </table>
+  </div>
+</div>
+
+{% endblock %}

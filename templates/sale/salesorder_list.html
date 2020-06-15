@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Drug List{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Sales List</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Sales List</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+       {% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col">
+      <table class="table table-hover ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Item</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in object_list %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{order.customer}}</td>
+            <td>{{order.item}}</td>
+            <td><s>N</s>{{order.get_total_order_price|intcomma}}</td>
+            <td>{{order.sales_date|date:"Y-m-d"}}</td>
+            <td>{% if order.sold %}
+                  Paid
+                  {% else %}
+                    Not Paid
+                  {% endif %}</td>
+            <td>
+              {% if order.sold %}
+              <a href="{{order.get_absolute_url}}">
+                <i class="far fa-eye mr-2"></i>
+              </a>
+              <a href="{{order.get_delete_url}}">
+                <i class="far fa-trash-alt"></i>
+              </a>
+              {% else %}
+              <a href="{% url 'sales:sale_update' order.pk order.customer.customer_last_name order %}">
+                <i class="far fa-edit mr-2"></i>
+              </a>
+              <a href="{{order.get_absolute_url}}">
+                <i class="far fa-eye mr-2"></i>
+              </a>
+              <a href="{{order.get_delete_url}}">
+                <i class="far fa-trash-alt mr-2"></i>
+              </a>
+              <a href="{% url 'sales:sale_payment' order.pk order.customer.customer_last_name order %}">
+                <i class="fas fa-money-bill-alt"></i>
+              </a>
+              {% endif %}
+
+
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+</div>
+
+{% endblock %}

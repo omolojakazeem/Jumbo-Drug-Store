@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Dashboard</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="">Home</a></li>
+            <li class="breadcrumb-item active">Dashboard</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+    {% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+    <table class="table table-striped table-responsive">
+      <thead>
+      <tr>
+          <th colspan="5">Drugs</th>
+        </tr>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Drug Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Expiry Date</th>
+            <th scope="col">Stock Remaining</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for drug in total_drugs %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{drug.drug_name}}</td>
+          <td>{{drug.drug_category}}</td>
+          <td>{{drug.drug_exp}}</td>
+            <td>{{drug.drug_stock}}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+<p></p>
+    <table class="table table-striped table-responsive">
+      <thead>
+      <tr>
+          <th colspan="5">Customers</th>
+        </tr>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email address</th>
+          <th scope="col">Age Group</th>
+            <th scope="col">Member Since</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for customer in total_customers %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>
+              {{customer.customer_first_name}}
+              {{customer.customer_second_name}}
+              {{customer.customer_last_name}}
+          </td>
+          <td>{{customer.customer_email}}</td>
+            <td>{{customer.customer_age_bracket}}</td>
+          <td>{{customer.customer_added_on}}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock %}

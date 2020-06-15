@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Order Invoice{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Drug Detail</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Drug Detail</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+{% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-8 offset-2">
+     <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Customer Name</th>
+          <td>{{order.customer.customer_full_name}}</td>
+        </tr>
+        <tr>
+          <th scope="col">Drug Items</th>
+          <td>
+              <ul>{% for order_item in order.drug.all %}
+                  <li>{{order_item}}</li>
+                  {% endfor %}
+              </ul>
+          </td>
+        </tr>
+          <tr>
+          <th scope="col">Reference Code</th>
+            <td>{{order.ref_code}}</td>
+          </tr>
+            <tr>
+          <th scope="col">Amount Paid</th>
+            <td><s>N</s>{{order.payment.order_amount}}</td>
+          </tr>
+            <tr>
+            <th scope="col">Date of Transaction</th>
+            <td>{{order.ordered_date}}</td>
+          </tr>
+            <tr>
+            <th scope="col">Attendant</th>
+            <td>{{order.sold_by}}</td>
+          </tr>
+            <tr>
+
+            <td colspan="2">
+              <form action="{% url 'order:print_invoice' order.pk %}">
+                <button class="btn btn-info" type="submit">Print</button>
+              </form>
+            </td>
+          </tr>
+
+        </thead>
+      </table>
+  </div>
+
+</div>
+
+{% endblock %}

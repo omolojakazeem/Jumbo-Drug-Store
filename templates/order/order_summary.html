@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Order Summary{% endblock %}
+{% block head_title %}{% endblock %}
+
+{% block breadcrumb %}
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Order </h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+            <li class="breadcrumb-item active">Order</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+{% endblock %}
+{% block mini_header %}
+       {% include 'snippets/mini_header.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12 ">
+    <h2>Order Summary</h2>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Item Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total Price</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                {% for order_item in object.drug.all %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>
+                            {{order_item.drug.drug_name}}
+                        </td>
+                        <td>
+                            {{order_item.drug.drug_price}}
+                        </td>
+                        <td>
+                             <a href="{% url 'order:remove_from_cart' order_item.drug.drug_name %}">
+                              <i class="fas fa-minus mr-3"></i>
+                            </a>
+                            {{order_item.quantity}}
+                            <a href="{% url 'order:add_to_cart' order_item.drug.drug_name %}">
+                              <i class="fas fa-plus ml-3"></i>
+                            </a>
+                        </td>
+                        <td>
+                            NGN {{order_item.get_total_drug_price}}
+                            <a href="{% url 'order:delete_order' order_item.drug.drug_name %}">
+                              <i style="color:red;" class="fas fa-trash-alt float-right"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+              {% if object.get_total_order_price %}
+              <tr>
+                <td colspan="4" align="right"><b>Order Total</b></td>
+                <td><b>NGN {{object.get_total_order_price}}</b></td>
+              </tr>
+              <tr>
+                <td colspan="2" align="right"><b> <a class="btn btn-primary" href="{% url 'drugs:drug_list' %}">Continue shopping</a></b></td>
+                <td colspan="3" align="center"><a href="{% url 'payment:checkout' %}" class="btn btn-warning"><b>Proceed to Checkout</b></a></td>
+              </tr>
+              {% endif %}
+
+
+              </tbody>
+            </table>
+          </div>
+  </div>
+
+</div>
+
+{% endblock %}
