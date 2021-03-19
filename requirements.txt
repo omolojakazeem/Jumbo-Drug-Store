@@ -16,7 +16,7 @@ django-pagedown==2.1.1
 django-phone-field==1.8.0
 django-rest-auth==0.9.5
 django-weasyprint==1.0.1
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 gunicorn==20.0.4
 html5lib==1.0.1
 idna==2.9
